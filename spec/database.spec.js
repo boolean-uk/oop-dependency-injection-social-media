@@ -15,4 +15,10 @@ describe("Database", () => {
   it("should find a data object by its ID", () => {
     expect(myDatabase.findById(1)).toEqual({ id: 1, username: "johndoe123", email: "johndoe@example.com" })
   })
+
+  it("should update data after finding it by ID", () => {
+    myDatabase.updateById(1, 'username', 'Mr_Pistachio')
+
+    expect(myDatabase.findById(1)).toEqual({ id: 1, username: "Mr_Pistachio", email: "johndoe@example.com" })
+  })
 });

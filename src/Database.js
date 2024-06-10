@@ -12,6 +12,11 @@ class Database {
     findById(id) {
         return this.#data.find((object) => object.id = id)
     }
+
+    updateById(id, key, value) {
+        const entryToUpdate = this.findById(id)
+        entryToUpdate[key] = value
+    }
 }
 
 export default Database
