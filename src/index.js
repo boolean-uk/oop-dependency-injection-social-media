@@ -84,13 +84,7 @@ class UserDatabase {
     }
 
     checkValidData(data) {
-        let foundUserName = null
-
-        for(const [key, value] of this.#data.data) {
-            if(value.username.includes(data.username)) {
-                foundUserName = key
-            }
-        }
+        const foundUserName = [...this.#data.data.values()].find((d) => d.username === data.username)
 
         if (!data.username || data.username.length < 6 || foundUserName) {
             throw 'data must have a unique username of no less than 6 characters long'
