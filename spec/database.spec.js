@@ -117,11 +117,11 @@ describe("PostrDatabase", () => {
     }).toThrowError("No data found with this ID");
   });
 
-  // it("should throw an error when trying to update username with a string of less than 5 characters", () => {
-  //   expect(() => {
-  //     myPostDatabase.updateById(1, "username", "four");
-  //   }).toThrowError("Usernames must be unique and over 5 characters");
-  // });
+  it("should throw an error when trying to update a title with a string of less than 5 words", () => {
+    expect(() => {
+      myPostDatabase.updateById(1, "title", "this won't work");
+    }).toThrowError("Post titles must be more than 5 words");
+  });
 
   // it("should throw an error when trying to update username with a non-unique username", () => {
   //   expect(() => {

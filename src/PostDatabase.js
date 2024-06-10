@@ -16,11 +16,8 @@ class PostDatabase {
   }
 
   updateById(id, key, value) {
-    if (key === "username") {
-        const foundData = this.getData().find((element) => element.username === value)
-      if (!(value.length > 6) || foundData) {
-          throw new Error("Usernames must be unique and over 5 characters");
-        }
+    if (key === "title" && value.split(" ").length <= 4) {
+      throw new Error("Post titles must be more than 5 words")
     }
     return this.#database.updateById(id, key, value);
   }
