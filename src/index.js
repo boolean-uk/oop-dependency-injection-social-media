@@ -1,10 +1,8 @@
 class Database {
     #allData
-    #idCounter
 
     constructor() {
         this.#allData = []
-        this.#idCounter = 1
     }
 
     get data() {
@@ -12,10 +10,17 @@ class Database {
     }
 
     addData(data) {
-        data.id = this.#idCounter
+        if (typeof data !== 'object' || data === null) {
+            throw 'data must be an object'
+        }
+
+        if(!data.id) {
+            throw 'data must have an id'
+        }
+
         this.#allData.push(data)
-        this.#idCounter++
     }
 }
+
 
 export default Database
