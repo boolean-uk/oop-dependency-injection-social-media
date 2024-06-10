@@ -23,7 +23,6 @@ class Database {
     add(data) {
         if(typeof data === 'object' && typeof data.id === 'number') {
             this.#entries.push(data)
-            console.log(data)
         } else {
             throw `Invalid data type`
         }
@@ -49,7 +48,6 @@ class Database {
     }
 
     get entries() {
-        console.log(this.#entries)
         return [...this.#entries]
     }
 }
@@ -126,6 +124,6 @@ newUser.addUser('billybob', 'newpassword')
 const newPost = new PostDatabase()
 newPost.addPost('First Post on the site', 'So excited to try this new social media today wow')
 
-data.entries
+newUser.entries
 
 

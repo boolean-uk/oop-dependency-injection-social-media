@@ -2,8 +2,8 @@ import Database, { UserDatabase, PostDatabase, User, Post } from "../src/index.j
 
 describe('Database', () => {
     let database
-    let userDatabase
     let postDatabase
+    let userDatabase
     beforeEach(() => {
         database = new Database()
         userDatabase = new UserDatabase()
@@ -29,5 +29,10 @@ describe('Database', () => {
         const removed = database.remove(1)
         expect(database.entries.length).toBe(1)
         expect(database.entries[0].username).toBe('Jimothy')
+    })
+    it('should add a user to the database array', () => {
+        userDatabase.addUser('billybob', 'newpassword')
+        expect(userDatabase.entries.length).toBe(1)
+        expect(userDatabase.entries[0].username).toBe('billybob')
     })
 })
