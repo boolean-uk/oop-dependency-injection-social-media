@@ -1,33 +1,27 @@
 export default class Database {
     #database
 
-    constructor(database = []) {
+    constructor(database = new Map()) {
         this.#database = database
     }
 
     get database() {
-        return [...this.#database]
+        return [...this.#database.values()]
     }
 
     addItem(item) {
-        this.#database.push(item)
+        this.#database.set(item.id, item)
         return this.database
     }
 
     removeItem(id) {
-        const newdatabase = this.#database.filter((element) => {
-            return !(element.id === id)
-        })
-
-        this.#database = newdatabase
+        this.#database.delete(id)
 
         return this.database
     }
 
     searchById(id) {
-        const searchTarget = this.#database.find((element) => {
-            return element.id === id
-        })
+        const searchTarget = this.#database.get(id)
 
         return searchTarget
     }
