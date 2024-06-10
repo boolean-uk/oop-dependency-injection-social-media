@@ -47,4 +47,11 @@ describe('Database', () => {
         const found = userDatabase.findUserByID(1)
         expect(found).toEqual(new User(1, 'Jimothy', 'jdizzle'))
     })
+    it('should remove a user', () => {
+        userDatabase.addUser('Jimothy', 'jdizzle')
+        userDatabase.addUser('billybob', 'newpassword')
+        userDatabase.removeUser(2)
+        expect(userDatabase.entries.length).toBe(1)
+        expect(userDatabase.entries[0].username).toBe('Jimothy')
+    })
 })
