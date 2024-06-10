@@ -1,4 +1,4 @@
-import Database from "../src/index.js";
+import Database, { UserDatabase } from "../src/index.js";
 
 describe('Database', () => {
     let database
@@ -86,8 +86,102 @@ describe('Database', () => {
         database.addData({id: 1, name: 'something', age: 42})
         database.addData({id: 2, name: 'something else', age: 22})
 
-        database.updateData(2, {id: 2, name: 'a test', age: 25})
+        const result = database.updateData(2, {id: 2, name: 'a test', age: 25})
 
+        expect(result).toEqual({id: 2, name: 'a test', age: 25})
         expect(database.data[1]).toEqual({id: 2, name: 'a test', age: 25})
+    })
+})
+
+describe('Userdatabase', () => {
+    let userDatabase
+
+    beforeEach(() => {
+        userDatabase = new UserDatabase(new Database)
+    })
+
+    it('should exist', () => {
+        expect(userDatabase).toBeInstanceOf(UserDatabase)
+        expect(userDatabase.userData.length).toBe(0)
+    })
+
+    it('should be able to add new data', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+
+        expect(userDatabase.userData.length).toBe(1)
+        expect(userDatabase.userData[0].id).toBe(1)
+        expect(userDatabase.userData[0].name).toBe('something')
+        expect(userDatabase.userData[0].age).toBe(42)
+
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        expect(userDatabase.userData.length).toBe(2)
+        expect(userDatabase.userData[1].id).toBe(2)
+        expect(userDatabase.userData[1].name).toBe('something else')
+        expect(userDatabase.userData[1].age).toBe(22)
+    })
+
+    it('should throw an error when adding data without an id', () => {
+        expect(() => userDatabase.addData({name: 'something', age: 42})).toThrow('data must have an id')
+
+        expect(userDatabase.userData.length).toBe(0)
+    })
+
+    it('should throw an error when adding data that is not an object', () => {
+        expect(() => userDatabase.addData('something')).toThrow('data must be an object')
+
+        expect(userDatabase.userData.length).toBe(0)
+    })
+
+    it('should find data by id', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        const result = userDatabase.findById(1)
+        const result2 = userDatabase.findById(2)
+
+        expect(result).toEqual({id: 1, name: 'something', age: 42})
+        expect(result2).toEqual({id: 2, name: 'something else', age: 22})
+    })
+
+    it('should throw an error if data not found', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        expect(() => userDatabase.findById(3)).toThrow('data not found')
+    })
+
+    it('should throw an error if data not found when removing', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        expect(() => userDatabase.removeData(3)).toThrow('data not found')
+    })
+
+    it('should be able to remove data', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        const result = userDatabase.removeData(2)
+
+        expect(result).toEqual({id: 2, name: 'something else', age: 22})
+        expect(userDatabase.userData.length).toBe(1)
+    })
+
+    it('should throw an error if data not found when updating', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        expect(() => userDatabase.updateData(3)).toThrow('data not found')
+    })
+
+    it('should be able to update data', () => {
+        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 2, name: 'something else', age: 22})
+
+        const result = userDatabase.updateData(2, {id: 2, name: 'a test', age: 25})
+
+        expect(result).toEqual({id: 2, name: 'a test', age: 25})
+        expect(userDatabase.userData[1]).toEqual({id: 2, name: 'a test', age: 25})
     })
 })
