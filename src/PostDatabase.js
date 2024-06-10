@@ -15,6 +15,10 @@ class PostDatabase {
     return this.#database.findById(id);
   }
 
+  addData(title, content) {
+    this.#database.addData('title', title, 'content', content)
+  }
+
   updateById(id, key, value) {
     if (key === "title" && value.split(" ").length <= 4) {
       throw new Error("Post titles must be more than 5 words")

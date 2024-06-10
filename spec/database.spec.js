@@ -123,9 +123,11 @@ describe("PostrDatabase", () => {
     }).toThrowError("Post titles must be more than 5 words");
   });
 
-  // it("should throw an error when trying to update username with a non-unique username", () => {
-  //   expect(() => {
-  //     myPostDatabase.updateById(1, "username", "franklin_jr");
-  //   }).toThrowError("Usernames must be unique and over 5 characters");
-  // });
+  it("should be able to have new data added", () => {
+    myPostDatabase.addData('Why C++ is the worst thing sliced cheese', 'I have no idea. In fact, I have no idea what is going on')
+
+    const foundPost = myPostDatabase.getData().find((posts) => posts.title === 'Why C++ is the worst thing sliced cheese')
+    expect(foundPost.title).toEqual('Why C++ is the worst thing sliced cheese')
+
+  })
 });

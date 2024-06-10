@@ -3,10 +3,20 @@ class Database {
 
   constructor(data) {
     this.#data = data;
+    this.idCounter = 11
   }
 
   getData() {
     return [...this.#data];
+  }
+
+  addData(key1, value1, key2, value2) {
+    const newData = {}
+    newData[key1] = value1
+    newData[key2] = value2
+    newData.id = this.idCounter
+    this.#data.push(newData)
+    this.idCounter ++ 
   }
 
   findById(id) {
