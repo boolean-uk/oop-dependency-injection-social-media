@@ -29,13 +29,13 @@ class UserDatabase {
     }
   }
 
-  findByName(value) {
+  findByName(name) {
     const database = this.userDataBase
     const exist = database.find((item) => {
-      return item.value === value
+      return item.name === name
     })
     if(exist === undefined) {
-      return `${value} is not exist!`
+      return `${name} is not exist!`
     } else return true
   }
 
@@ -53,20 +53,4 @@ class UserDatabase {
 }
 
 
-
-const mydata = new UserDatabase()
-
-
-mydata.add('farshad')
-mydata.add('will20')
-mydata.add('farshad')
-mydata.add('nathan')
-// mydata.removeById(3)
-mydata.add('Peric')
-mydata.updateById(4, 'Angus1')
-// mydata.add('shahi')
-// mydata.update(5, 'shaian')
-console.log(mydata.userDataBase)
-// console.log(mydata.findByName('farshad'))
-
-// console.log(mydata.userRules('farshad'))
+export { UserDatabase }
