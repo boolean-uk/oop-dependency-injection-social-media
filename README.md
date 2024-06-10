@@ -13,6 +13,8 @@ Create a social media system that can organise users and posts
     - It should not care about the specific type of data inside the array, but it should assume that every piece of data is at least an object with a numeric `id` property
 - Create a `UserDatabase` and a `PostDatabase` class
     - Both of these classes should have a Database injected into them and provide the same add, remove, find and update functionality specifically for users and posts respectively
+    - These new classes should not expose the internal `Database` class directly, that should be private
+    - These classes should use the internal `Database` as its data store
 - The `UserDatabase` class should enforce that users have a unique username that is a string no less than 6 characters long whenever adding or changing a user
 - The `PostDatabase` class should enforce that posts have a title string no less than 5 _words_ long, and a content of no less than 10 words whenever adding or changing a post
 - You must create at least one test for every function you create
