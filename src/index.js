@@ -53,7 +53,6 @@ class FunctionalDatabase {
     }
 
     searchByKey(key, value) {
-        
         const searchTarget = this.viewDatabase().find((element) => {
             return element[key] === value
         })
@@ -214,4 +213,16 @@ class User {
     }
 }
 
-export { DatabaseFactory, UserDatabase, PostDatabase, IdCreator }
+class UserPost {
+    constructor(id, user, post) {
+        this.id = id
+        this.user = user
+        this.post = post
+    }
+
+    createPost() {
+        this.user.posts.addPost(this.id, this.post)
+    }
+}
+
+export { DatabaseFactory, UserDatabase, PostDatabase, IdCreator, UserPost }

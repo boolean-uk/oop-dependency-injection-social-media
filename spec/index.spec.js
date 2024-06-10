@@ -3,6 +3,7 @@ import Database, {
     UserDatabase,
     PostDatabase,
     IdCreator,
+    UserPost,
 } from '../src/index.js'
 
 describe('database', () => {
@@ -164,6 +165,26 @@ describe('user database', () => {
         const currentUser = userDatabase.addUser(id, user)
 
         currentUser.posts.addPost(idCreator.create(), post)
+
+        expect(currentUser.posts.viewDatabase()[0].title).toBe(
+            'I swear this is a title'
+        )
+    })
+
+    it('uses the userpost class to create the post', () => {
+        const user = { username: 'TonyDanzaFan28' }
+
+        const post = {
+            title: 'I swear this is a title',
+            content:
+                "I seriously have to write at least 10 words? That's insane!",
+        }
+
+        const id = idCreator.create()
+
+        const currentUser = userDatabase.addUser(id, user)
+
+        new UserPost(idCreator.create(),currentUser, post).createPost()
 
         expect(currentUser.posts.viewDatabase()[0].title).toBe(
             'I swear this is a title'
