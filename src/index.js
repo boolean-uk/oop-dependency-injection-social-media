@@ -78,6 +78,34 @@ class UserDatabase {
     }
 }
 
+class PostDatabase {
+    #data
+
+    constructor(data) {
+        this.#data = data
+    }
+
+    get postData() {
+        return [...this.#data.data]
+    }
+
+    addData(data) {
+        this.#data.addData(data)
+    }
+
+    findById(id) {
+       return this.#data.findById(id)
+    }
+
+    removeData(id) {
+        return this.#data.removeData(id)
+    }
+
+    updateData(id, newData) {
+        return this.#data.updateData(id, newData)
+    }
+}
+
 
 export default Database
-export { UserDatabase }
+export { UserDatabase, PostDatabase }
