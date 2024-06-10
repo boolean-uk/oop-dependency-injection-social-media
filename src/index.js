@@ -77,11 +77,13 @@ class UserDatabase extends Database{
     }
 
     findUserByID(id) {
-        super.findByID(id)
+        const found = super.findByID(id)
+        return found
     }
 
     removeUser(id) {
-        super.remove(id)
+        const remove = super.remove(id)
+        return remove
     }
 }
 
@@ -107,23 +109,25 @@ class PostDatabase extends Database {
     }
 
     removePost(id) {
-        super.remove(id)
+        const newPosts = super.remove(id)
+        return newPosts
     }
 
     findPost(id) {
-        super.findByID(id)
+        const found = super.findByID(id)
+        return found
     }
 }
 export { UserDatabase, PostDatabase, User, Post }
 export default Database
 
 const data = new Database()
-const newUser = new UserDatabase()
-newUser.addUser('billybob', 'newpassword')
+const userDatabase = new UserDatabase()
+userDatabase.addUser('billybob', 'newpassword')
 
-const newPost = new PostDatabase()
-newPost.addPost('First Post on the site', 'So excited to try this new social media today wow')
+const postDatabase = new PostDatabase()
+postDatabase.addPost('First Post on the site', 'So excited to try this new social media today wow')
 
-newUser.entries
+userDatabase.findUserByID(1)
 
 

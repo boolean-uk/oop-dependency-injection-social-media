@@ -37,7 +37,14 @@ describe('Database', () => {
     })
     it('should find a username to check if it already exists', () => {
         userDatabase.addUser('Jimothy', 'jdizzle')
+        userDatabase.addUser('billybob', 'newpassword')
         const findUserName = userDatabase.findUserName('Jimothy')
         expect(findUserName).toEqual(new User(1, 'Jimothy', 'jdizzle'))
+    })
+    it('should find a user by ID', () => {
+        userDatabase.addUser('Jimothy', 'jdizzle')
+        userDatabase.addUser('billybob', 'newpassword')
+        const found = userDatabase.findUserByID(1)
+        expect(found).toEqual(new User(1, 'Jimothy', 'jdizzle'))
     })
 })
