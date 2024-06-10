@@ -2,7 +2,7 @@
   "name": "oop-inheritance-pet-shop",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "npx jasmine"
   },
