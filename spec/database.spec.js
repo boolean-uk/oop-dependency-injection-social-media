@@ -84,43 +84,48 @@ describe("UserDatabase", () => {
 });
 
 describe("PostrDatabase", () => {
-    let myPostDatabase;
-  
-    beforeEach(() => {
-      myPostDatabase = new PostDatabase(new Database([...posts]));
-    });
-  
-    it("should have the same detData method as injected database", () => {
-      expect(myPostDatabase.getData()).toEqual([...posts]);
-    });
-  
-    it("should have the same getById method as injected database", () => {
-      expect(myPostDatabase.findById(5)).toEqual(  { id: 5, title: "An Introduction to JavaScript ES6 Features", content: "ES6 brought many new features to JavaScript, such as arrow functions, let and const, template literals, and destructuring. These features make the language more powerful and expressive, allowing for cleaner and more concise code." });
-    });
-  
-    // it("should have the same update method as injected database", () => {
-    //     myPostDatabase.updateById(8, "username", "Shane-o");
-  
-    //   expect(myPostDatabase.findById(8).username).toEqual("Shane-o");
-    // });
-  
-    // it("should have the same removeDataById method as injected database", () => {
-    //   myUserDatabase.removeById(1);
-  
-    //   expect(() => {
-    //     myPostDatabase.findById(1);
-    //   }).toThrowError("No data found with this ID");
-    // });
-  
-    // it("should throw an error when trying to update username with a string of less than 5 characters", () => {
-    //   expect(() => {
-    //     myPostDatabase.updateById(1, "username", "four");
-    //   }).toThrowError("Usernames must be unique and over 5 characters");
-    // });
-  
-    // it("should throw an error when trying to update username with a non-unique username", () => {
-    //   expect(() => {
-    //     myPostDatabase.updateById(1, "username", "franklin_jr");
-    //   }).toThrowError("Usernames must be unique and over 5 characters");
-    // });
+  let myPostDatabase;
+
+  beforeEach(() => {
+    myPostDatabase = new PostDatabase(new Database([...posts]));
   });
+
+  it("should have the same detData method as injected database", () => {
+    expect(myPostDatabase.getData()).toEqual([...posts]);
+  });
+
+  it("should have the same getById method as injected database", () => {
+    expect(myPostDatabase.findById(5)).toEqual({
+      id: 5,
+      title: "An Introduction to JavaScript ES6 Features",
+      content:
+        "ES6 brought many new features to JavaScript, such as arrow functions, let and const, template literals, and destructuring. These features make the language more powerful and expressive, allowing for cleaner and more concise code.",
+    });
+  });
+
+  it("should have the same update method as injected database", () => {
+      myPostDatabase.updateById(8, "title", "Why fortran is the most whimsical language");
+
+    expect(myPostDatabase.findById(8).title).toEqual("Why fortran is the most whimsical language");
+  });
+
+  // it("should have the same removeDataById method as injected database", () => {
+  //   myUserDatabase.removeById(1);
+
+  //   expect(() => {
+  //     myPostDatabase.findById(1);
+  //   }).toThrowError("No data found with this ID");
+  // });
+
+  // it("should throw an error when trying to update username with a string of less than 5 characters", () => {
+  //   expect(() => {
+  //     myPostDatabase.updateById(1, "username", "four");
+  //   }).toThrowError("Usernames must be unique and over 5 characters");
+  // });
+
+  // it("should throw an error when trying to update username with a non-unique username", () => {
+  //   expect(() => {
+  //     myPostDatabase.updateById(1, "username", "franklin_jr");
+  //   }).toThrowError("Usernames must be unique and over 5 characters");
+  // });
+});
