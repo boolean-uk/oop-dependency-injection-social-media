@@ -49,14 +49,24 @@ describe("UserDatabase", () => {
      })
 
      it('should have the same update method as injected database', () => {
-        myUserDatabase.updateById(1, 'username', 'Mr_Pistachio')
+        myUserDatabase.updateById(8, 'username', 'Shane-o')
 
-        expect(myUserDatabase.findById(1).username).toEqual('Mr_Pistachio')
+        expect(myUserDatabase.findById(8).username).toEqual('Shane-o')
      })
 
      it("should have the same removeDataById method as injected database", () => {
         myUserDatabase.removeById(1)
     
         expect(() => {myUserDatabase.findById(1)}).toThrowError('No data found with this ID')
+      })
+
+      it("should throw an error when trying to update username with a string of less than 5 characters", () => {
+  
+        expect(() => {myUserDatabase.updateById(1, 'username', 'four')}).toThrowError("Usernames must be unique and over 5 characters")
+      })
+
+      it("should throw an error when trying to update username with a non-unique username", () => {
+  
+        expect(() => {myUserDatabase.updateById(1, 'username', "franklin_jr")}).toThrowError("Usernames must be unique and over 5 characters")
       })
 })
