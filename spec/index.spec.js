@@ -106,25 +106,41 @@ describe('Userdatabase', () => {
     })
 
     it('should be able to add new data', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
 
         expect(userDatabase.userData.length).toBe(1)
         expect(userDatabase.userData[0].id).toBe(1)
-        expect(userDatabase.userData[0].name).toBe('something')
+        expect(userDatabase.userData[0].username).toBe('something')
         expect(userDatabase.userData[0].age).toBe(42)
 
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
         expect(userDatabase.userData.length).toBe(2)
         expect(userDatabase.userData[1].id).toBe(2)
-        expect(userDatabase.userData[1].name).toBe('something else')
+        expect(userDatabase.userData[1].username).toBe('somethingelse')
         expect(userDatabase.userData[1].age).toBe(22)
     })
 
     it('should throw an error when adding data without an id', () => {
-        expect(() => userDatabase.addData({name: 'something', age: 42})).toThrow('data must have an id')
+        expect(() => userDatabase.addData({username: 'something', age: 42})).toThrow('data must have an id')
 
         expect(userDatabase.userData.length).toBe(0)
+    })
+
+    it('should throw an error when adding invalid data', () => {
+        expect(() => userDatabase.addData({username: 'some', age: 42})).toThrow('data must have a unique username of no less than 6 characters long')
+
+        expect(userDatabase.userData.length).toBe(0)
+
+        expect(() => userDatabase.addData({name: 'some', age: 42})).toThrow('data must have a unique username of no less than 6 characters long')
+
+        expect(userDatabase.userData.length).toBe(0)
+
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+
+        expect(() => userDatabase.addData({username: 'something', age: 42})).toThrow('data must have a unique username of no less than 6 characters long')
+
+        expect(userDatabase.userData.length).toBe(1)
     })
 
     it('should throw an error when adding data that is not an object', () => {
@@ -134,55 +150,55 @@ describe('Userdatabase', () => {
     })
 
     it('should find data by id', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
         const result = userDatabase.findById(1)
         const result2 = userDatabase.findById(2)
 
-        expect(result).toEqual({id: 1, name: 'something', age: 42})
-        expect(result2).toEqual({id: 2, name: 'something else', age: 22})
+        expect(result).toEqual({id: 1, username: 'something', age: 42})
+        expect(result2).toEqual({id: 2, username: 'somethingelse', age: 22})
     })
 
     it('should throw an error if data not found', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
         expect(() => userDatabase.findById(3)).toThrow('data not found')
     })
 
     it('should throw an error if data not found when removing', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
         expect(() => userDatabase.removeData(3)).toThrow('data not found')
     })
 
     it('should be able to remove data', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
         const result = userDatabase.removeData(2)
 
-        expect(result).toEqual({id: 2, name: 'something else', age: 22})
+        expect(result).toEqual({id: 2, username: 'somethingelse', age: 22})
         expect(userDatabase.userData.length).toBe(1)
     })
 
     it('should throw an error if data not found when updating', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
-        expect(() => userDatabase.updateData(3, {id: 2, name: 'a test', age: 25})).toThrow('data not found')
+        expect(() => userDatabase.updateData(3, {id: 2, username: 'testing', age: 25})).toThrow('data not found')
     })
 
     it('should be able to update data', () => {
-        userDatabase.addData({id: 1, name: 'something', age: 42})
-        userDatabase.addData({id: 2, name: 'something else', age: 22})
+        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
 
-        const result = userDatabase.updateData(2, {id: 2, name: 'a test', age: 25})
+        const result = userDatabase.updateData(2, {id: 2, username: 'testing', age: 25})
 
-        expect(result).toEqual({id: 2, name: 'a test', age: 25})
-        expect(userDatabase.userData[1]).toEqual({id: 2, name: 'a test', age: 25})
+        expect(result).toEqual({id: 2, username: 'testing', age: 25})
+        expect(userDatabase.userData[1]).toEqual({id: 2, username: 'testing', age: 25})
     })
 })
 

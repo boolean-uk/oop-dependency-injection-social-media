@@ -62,6 +62,12 @@ class UserDatabase {
     }
 
     addData(data) {
+        if (typeof data !== 'object' || data === null) {
+            throw 'data must be an object'
+        }
+        
+        this.checkValidData(data)
+
         this.#data.addData(data)
     }
 
@@ -75,6 +81,14 @@ class UserDatabase {
 
     updateData(id, newData) {
         return this.#data.updateData(id, newData)
+    }
+
+    checkValidData(data) {
+        const foundUserName = this.#data.data.find((d) => d.username === data.username)
+
+        if (!data.username || data.username.length < 6 || foundUserName) {
+            throw 'data must have a unique username of no less than 6 characters long'
+        }
     }
 }
 
