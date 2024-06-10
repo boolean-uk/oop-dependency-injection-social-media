@@ -38,15 +38,25 @@ class Database {
 }
 
 class UserDatabase extends Database{
-    constructor() {
+    constructor(username) {
         super()
+        this.username = username
+        this.id = 1
     }
 
-    addUser(user) {
-        super.add(user)
+    addUser(username) {
+        if(typeof username === 'string' && username.length >= 6 && !this.findUserName(username)) {
+            this.id++
+            super.add(user)
+        } else throw 'Invalid username, must be at least 6 characters long'
     }
 
-    findUser(id) {
+    findUserName(username) {
+        const found = this.entries((user) => user.username === username)
+        return found
+    }
+
+    findUserByID(id) {
         super.findByID(id)
     }
 
@@ -57,9 +67,10 @@ class UserDatabase extends Database{
 
 const data = new Database()
 data.add({id: 1, post: 'Hello there'})
+// data.add({id: 1, post: 'checking in'})
 
-const user = new UserDatabase()
-user.addUser({id: 1, user: 'Billy Bob'})
+const newUser = new UserDatabase()
+newUser.addUser('billybob')
 data.entries
 
 
