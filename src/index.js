@@ -6,6 +6,14 @@ class User {
     }
 }
 
+class Post {
+    constructor(id, title, content) {
+        this.id = id
+        this.title = title
+        this.content = content
+    }
+}
+
 class Database {
     #entries
     constructor() {
@@ -71,6 +79,30 @@ class UserDatabase extends Database{
 
     removeUser(id) {
         super.remove(id)
+    }
+}
+
+class PostDatabase extends Database {
+    constructor() {
+        super()
+        this.id = 1
+    }
+
+    addPost(title, content) {
+        const newPost = new Post(this.id, title, content)
+        let titleWords = title.split(' ')
+        let contentWords = content.split(' ')
+        if(typeof title === 'string' && titleWords.length >= 5 && contentWords.length >= 10) {
+            super.add(newPost)
+        } else throw 'Invalid post, please ensure title is min 5 words & content is min 10 words'
+    }
+
+    removePost(id) {
+        super.remove(id)
+    }
+
+    findPost(id) {
+        super.findByID(id)
     }
 }
 
