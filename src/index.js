@@ -1,3 +1,11 @@
+class User {
+    constructor(id, username, password) {
+        this.id = id
+        this.username = username
+        this.password = password
+    }
+}
+
 class Database {
     #entries
     constructor() {
@@ -44,15 +52,16 @@ class UserDatabase extends Database{
         this.id = 1
     }
 
-    addUser(username) {
+    addUser(username, password) {
+        const newUser = new User(this.id, username, password)
         if(typeof username === 'string' && username.length >= 6 && !this.findUserName(username)) {
             this.id++
-            super.add(user)
+            super.add(newUser)
         } else throw 'Invalid username, must be at least 6 characters long'
     }
 
     findUserName(username) {
-        const found = this.entries((user) => user.username === username)
+        const found = this.entries.find((user) => user.username === username)
         return found
     }
 
@@ -70,7 +79,7 @@ data.add({id: 1, post: 'Hello there'})
 // data.add({id: 1, post: 'checking in'})
 
 const newUser = new UserDatabase()
-newUser.addUser('billybob')
+newUser.addUser('billybob', 'newpassword')
 data.entries
 
 
