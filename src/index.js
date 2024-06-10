@@ -23,6 +23,7 @@ class Database {
     add(data) {
         if(typeof data === 'object' && typeof data.id === 'number') {
             this.#entries.push(data)
+            console.log(data)
         } else {
             throw `Invalid data type`
         }
@@ -54,22 +55,26 @@ class Database {
 }
 
 class UserDatabase extends Database{
-    constructor(username) {
+    constructor() {
         super()
-        this.username = username
         this.id = 1
     }
 
     addUser(username, password) {
         const newUser = new User(this.id, username, password)
-        if(typeof username === 'string' && username.length >= 6 && !this.findUserName(username)) {
+        if (
+            typeof username === 'string' &&
+            username.length >= 6 &&
+            !this.findUserName(username)
+        ) {
             this.id++
             super.add(newUser)
         } else throw 'Invalid username, must be at least 6 characters long'
     }
 
     findUserName(username) {
-        const found = this.entries.find((user) => user.username === username)
+        const entries = super.entries
+        const found = entries.find((d) => d.username === username)
         return found
     }
 
@@ -92,9 +97,15 @@ class PostDatabase extends Database {
         const newPost = new Post(this.id, title, content)
         let titleWords = title.split(' ')
         let contentWords = content.split(' ')
-        if(typeof title === 'string' && titleWords.length >= 5 && contentWords.length >= 10) {
+        if (
+            typeof title === 'string' &&
+            titleWords.length >= 5 &&
+            contentWords.length >= 10
+        ) {
+            this.id++
             super.add(newPost)
-        } else throw 'Invalid post, please ensure title is min 5 words & content is min 10 words'
+        } else 
+        throw 'Invalid post, please ensure title is min 5 words & content is min 10 words'
     }
 
     removePost(id) {
@@ -105,13 +116,16 @@ class PostDatabase extends Database {
         super.findByID(id)
     }
 }
+export { UserDatabase, PostDatabase, User, Post }
+export default Database
 
 const data = new Database()
-data.add({id: 1, post: 'Hello there'})
-// data.add({id: 1, post: 'checking in'})
-
 const newUser = new UserDatabase()
 newUser.addUser('billybob', 'newpassword')
+
+const newPost = new PostDatabase()
+newPost.addPost('First Post on the site', 'So excited to try this new social media today wow')
+
 data.entries
 
 
