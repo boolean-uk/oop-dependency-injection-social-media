@@ -14,6 +14,10 @@ class UserDatabase{
     findById(id) {
         return this.#database.findById(id)
     }
+
+    updateById(id, key, value) {
+        return this.#database.updateById(id, key, value)
+    }
 }
 
 export default UserDatabase

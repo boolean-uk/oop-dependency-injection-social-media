@@ -47,4 +47,10 @@ describe("UserDatabase", () => {
         
         expect(myUserDatabase.findById(5)).toEqual({ id: 5, username: "bob_builder", email: 'bobbuilder@example.com' })
      })
+
+     it('should have the same update method as injected database', () => {
+        myUserDatabase.updateById(1, 'username', 'Mr_Pistachio')
+
+        expect(myUserDatabase.findById(1).username).toEqual('Mr_Pistachio')
+     })
 })
