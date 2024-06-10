@@ -90,6 +90,12 @@ class PostDatabase {
     }
 
     addData(data) {
+        if (typeof data !== 'object' || data === null) {
+            throw 'data must be an object'
+        }
+
+        this.checkValidData(data)
+
         this.#data.addData(data)
     }
 
@@ -102,7 +108,19 @@ class PostDatabase {
     }
 
     updateData(id, newData) {
+        this.checkValidData(newData)
+
         return this.#data.updateData(id, newData)
+    }
+
+    checkValidData(data) {
+        function countWords(string) {
+            return string.split(' ').length
+        }
+
+        if(!data.title || countWords(data.title) < 5 || !data.content || countWords(data.content) < 10) {
+            throw 'post must have a title of no less than 5 words long and a content of no less tham 10 words long'
+        }
     }
 }
 
