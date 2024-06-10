@@ -1,5 +1,6 @@
-import Database from "../src/index.js"
 import { v4 as uuidv4 } from "uuid"
+import Database from "../src/index.js"
+import UserDatabase from "../src/userDB.js"
 
 describe("Database", () => {
 	let db
@@ -123,6 +124,112 @@ describe("Database", () => {
 			)
 		)
 		expect(() => db.updateData()).toThrowError(
+			"An ID of the entry to be updated, must be provided"
+		)
+	})
+})
+
+describe("UserDatabase", () => {
+	let udb
+
+	beforeEach(() => {
+		udb = new UserDatabase(new Database())
+	})
+
+	// Test Validity
+
+	it("should be an instance of UserDatabace", () => {
+		expect(udb).toBeInstanceOf(UserDatabase)
+	})
+
+	it("should start with data as an empty array", () => {
+		expect(udb.getData().length).toBe(0)
+	})
+
+	//Test addUser
+
+	it("should be able to add one or more entries with different auto-generated ids", () => {
+		udb.addUser({ username: "JohnyBeGood" })
+		expect(udb.getData().length).toBe(1)
+		udb.addUser({ username: "MaryBeBad" })
+		expect(udb.getData().length).toBe(2)
+		expect(udb.getData()[0]).toEqual({
+			username: "JohnyBeGood",
+			id: "cb0cad71-3a90-46dc-bb5f-f74518c9457a",
+		})
+		expect(udb.getData()[1]).toEqual({
+			username: "MaryBeBad",
+			id: "c8063fae-5bed-4cc8-84ca-7a995b63fd27",
+		})
+	})
+
+	it("should throw an error if wrong type of data, no data or invalid username are provided to addUser", () => {
+		expect(() => udb.addUser("Johny")).toThrowError(
+			"The data provided must be an object"
+		)
+		expect(() => udb.addUser({ username: "Mack" })).toThrowError(
+			"Username must be a string with more than 6 characters"
+		)
+		expect(() => udb.addUser()).toThrowError(
+			"The data provided must be an object"
+		)
+	})
+
+	//Test removeUser
+
+	it("should be able to find and remove an existing user, using a provided id", () => {
+		udb.addUser({ username: "JohnyBeGood" })
+		udb.addUser({ username: "MaryBeBad" })
+		udb.addUser({ username: "ABlokeInThePub" })
+		expect(udb.getData().length).toBe(3)
+		expect(udb.getData()[2].username).toBe("ABlokeInThePub")
+
+		udb.removeUser("4671db17-3c2e-4cdd-8e61-357bc767610b")
+		expect(udb.getData().length).toBe(2)
+	})
+
+	it("should throw an error if wrong or no id is provided to removeUser", () => {
+		udb.addUser({ username: "JohnyBeGood" })
+		udb.addUser({ username: "MaryBeBad" })
+		udb.addUser({ username: "ABlokeInThePub" })
+		expect(udb.getData().length).toBe(3)
+
+		expect(() => udb.removeUser("46b")).toThrowError(
+			"No data with id = 46b were found in the database"
+		)
+		expect(() => udb.removeUser()).toThrowError(
+			"An ID must be provided"
+		)
+	})
+
+	//Test updateData
+
+	it("should be able to update an entry by id with the provided data", () => {
+		udb.addUser({ username: "JohnyBeGood" })
+		udb.addUser({ username: "MaryBeBad" })
+		udb.addUser({ username: "ABlokeInThePub" })
+		expect(udb.getData()[2].username).toBe("ABlokeInThePub")
+
+		udb.updateUser("4671db17-3c2e-4cdd-8e61-357bc767610b", {
+			username: "ADifferentBlokeInThePub",
+		})
+		expect(udb.getData()[2].username).toBe("ADifferentBlokeInThePub")
+	})
+
+	it("should throw an error if wrong or no id is provided to updateData", () => {
+		udb.addUser({ username: "JohnyBeGood" })
+		udb.addUser({ username: "MaryBeBad" })
+		udb.addUser({ username: "ABlokeInThePub" })
+		expect(udb.getData()[2].username).toBe("ABlokeInThePub")
+
+		expect(() =>
+			updateUser("46b", {
+				userName: "AnotherBlokeInThePub",
+			}).toThrowError(
+				"No data with id = 46b were found in the database"
+			)
+		)
+		expect(() => udb.updateUser()).toThrowError(
 			"An ID of the entry to be updated, must be provided"
 		)
 	})
