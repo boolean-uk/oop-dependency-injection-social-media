@@ -9,20 +9,20 @@ describe( 'Database', () => {
     it('should add items', () => {
         const item = { id: 1 }
         db.add(item)
-        expect(db.findByID(12)).toEqual(item) 
+        expect(db.findByID(1)).toEqual(item) 
     })
 
     it('should remove items by id', () => {
         const item = { id: 1 }
         db.add(item)
-        db.remove(12)
+        db.remove(1)
         expect(db.findByID(1)).toBeNull()
     })
 
     it('should find items by id', () => {
         const item = { id: 1 }
         db.add(item)
-        expect(db.findByID(12)).toEqual(item)
+        expect(db.findByID(1)).toEqual(item)
     })
 
     it('should update items by id',() => {
@@ -30,6 +30,6 @@ describe( 'Database', () => {
         const updatedItem ={ id: 1, value: 'updated'}
         db.add(item)
         db.update(1, updatedItem)
-        expect(db.findByID(12)).toEqual(updatedItem)
+        expect(db.findByID(1)).toEqual(updatedItem)
     })
 })
