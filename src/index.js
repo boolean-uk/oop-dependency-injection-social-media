@@ -15,12 +15,15 @@ ids.set(10, "2bc1042d-6731-4c6a-b08f-f4224943873e")
 class Database {
 	#data
 
-	constructor(idGenerator = uuidv4) {
+	constructor(idGenerator = uuidv4, data = []) {
 		this.idGenerator = uuidv4
-		this.#data = []
+		this.#data = data
 	}
 
-	get data() {
+	// get data() {
+	// 	return [...this.#data]
+	// }
+	getData() {
 		return [...this.#data]
 	}
 
@@ -41,8 +44,8 @@ class Database {
 	}
 
 	findDataById(id) {
-        const idIndex = this.#data.findIndex((idi) => idi.id === id)
-        if(!id) throw new Error("An ID must be provided")
+		const idIndex = this.#data.findIndex((idi) => idi.id === id)
+		if (!id) throw new Error("An ID must be provided")
 		if (idIndex === -1) {
 			return false
 		} else {
@@ -89,11 +92,11 @@ class Database {
 export default Database
 
 
-const udb = new Database([])
-udb.addData({ userName: "JohnyBGood" })
-udb.addData({ userName: "MaryBeBad" })
-udb.addData({ userName: "ABlokeInThePub" })
+// const udb = new Database()
+// udb.addData({ userName: "JohnyBGood" })
+// udb.addData({ userName: "MaryBeBad" })
+// udb.addData({ userName: "ABlokeInThePub" })
 
-console.log(udb.data);
+// console.log(udb.getData());
 
-console.log(udb.findDataById('c8063fae-5bed-4cc8-84ca-7a995b63fd27'))
+// console.log(udb.findDataById('c8063fae-5bed-4cc8-84ca-7a995b63fd27'))
