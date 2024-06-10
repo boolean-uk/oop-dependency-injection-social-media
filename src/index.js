@@ -3,12 +3,12 @@ class Database {
     #idCounter
 
     constructor() {
-        this.#allData = []
+        this.#allData = new Map()
         this.#idCounter = 1
     }
 
     get data() {
-        return [...this.#allData]
+        return structuredClone(this.#allData)
     }
 
     addData(data) {
@@ -17,12 +17,12 @@ class Database {
         }
 
         data.id = this.#idCounter
-        this.#allData.push(data)
+        this.#allData.set(this.#idCounter, data)
         this.#idCounter++
     }
 
     findById(id) {
-        const foundData = this.#allData.find((data) => data.id === id)
+        const foundData = this.#allData.get(id)
 
         if(!foundData) {
             throw 'data not found'
@@ -33,22 +33,20 @@ class Database {
 
     removeData(id) {
         const foundData = this.findById(id)
-        const foundDataIndex = this.#allData.indexOf(foundData)
 
-        this.#allData.splice(foundDataIndex, 1)
+        this.#allData.delete(id)
 
         return foundData
     }
 
     updateData(id, newData) {
         const foundData = this.findById(id)
-        const foundDataIndex = this.#allData.indexOf(foundData)
 
         newData.id = foundData.id
 
-        this.#allData.splice(foundDataIndex, 1, newData)
+        this.#allData.set(id, newData)
 
-        return this.#allData[foundDataIndex]
+        return this.#allData.get(id)
     }
 }
 
@@ -60,7 +58,7 @@ class UserDatabase {
     }
 
     get userData() {
-        return [...this.#data.data]
+        return structuredClone(this.#data.data)
     }
 
     addData(data) {
@@ -86,7 +84,13 @@ class UserDatabase {
     }
 
     checkValidData(data) {
-        const foundUserName = this.#data.data.find((d) => d.username === data.username)
+        let foundUserName = null
+
+        for(const [key, value] of this.#data.data) {
+            if(value.username.includes(data.username)) {
+                foundUserName = key
+            }
+        }
 
         if (!data.username || data.username.length < 6 || foundUserName) {
             throw 'data must have a unique username of no less than 6 characters long'
@@ -102,7 +106,7 @@ class PostDatabase {
     }
 
     get postData() {
-        return [...this.#data.data]
+        return structuredClone(this.#data.data)
     }
 
     addData(data) {
