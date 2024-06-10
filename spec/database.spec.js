@@ -94,13 +94,9 @@ describe("PostrDatabase", () => {
       expect(myPostDatabase.getData()).toEqual([...posts]);
     });
   
-    // it("should have the same getById method as injected database", () => {
-    //   expect(myPostDatabase.findById(5)).toEqual({
-    //     id: 5,
-    //     username: "bob_builder",
-    //     email: "bobbuilder@example.com",
-    //   });
-    // });
+    it("should have the same getById method as injected database", () => {
+      expect(myPostDatabase.findById(5)).toEqual(  { id: 5, title: "An Introduction to JavaScript ES6 Features", content: "ES6 brought many new features to JavaScript, such as arrow functions, let and const, template literals, and destructuring. These features make the language more powerful and expressive, allowing for cleaner and more concise code." });
+    });
   
     // it("should have the same update method as injected database", () => {
     //     myPostDatabase.updateById(8, "username", "Shane-o");
