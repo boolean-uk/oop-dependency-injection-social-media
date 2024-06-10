@@ -8,10 +8,10 @@ class Database {
     this.#id = 1
   }
 
-  add(value) {
+  add(name) {
     const myObject = {
       id : this.#id,
-      value : value
+      name : name
     }
     this.#myDatastore.push(myObject)
     this.#id++
@@ -24,7 +24,6 @@ class Database {
     if(index === -1) {
       console.log(`Could not find userId with : ${id} in database!`)
     } else {
-      console.log(`user ${index} founded!`)
       return index
     }
   }
@@ -41,14 +40,14 @@ class Database {
 
   }
 
-  update(id, newValue) {
+  update(id, newName) {
     const index = this.findById(id)
-    const oldValue = this.#myDatastore[index].value
+    const oldName = this.#myDatastore[index].name
     if(index === -1) {
       console.log('Could not find the user!')
     } else {
-      this.#myDatastore[index].value = newValue
-      return console.log(`user ${oldValue} changed to ${newValue}!`)
+      this.#myDatastore[index].name = newName
+      return console.log(`user ${oldName} changed to ${newName}!`)
     }
   }
 

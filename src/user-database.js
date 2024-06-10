@@ -22,7 +22,7 @@ class UserDatabase {
   }
 
   userRules(name) {
-    if(name.length > 6) return true
+    if(name.length > 5) return true
     else {
       console.log(`${name} is less than 6 characters!`)
       return false
@@ -58,12 +58,12 @@ const mydata = new UserDatabase()
 
 
 mydata.add('farshad')
-mydata.add('will')
+mydata.add('will20')
 mydata.add('farshad')
 mydata.add('nathan')
 // mydata.removeById(3)
 mydata.add('Peric')
-mydata.updateById(4, 'Angus')
+mydata.updateById(4, 'Angus1')
 // mydata.add('shahi')
 // mydata.update(5, 'shaian')
 console.log(mydata.userDataBase)
