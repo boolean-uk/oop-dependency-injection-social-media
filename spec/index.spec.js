@@ -41,6 +41,33 @@ describe("Database", () => {
 		)
 	})
 
+	//Test findDataById
+
+	it("should be able to find data with the provided id and return an array with the data andthe index of the data to be used in other functions", () => {
+		db.addData({ username: "JohnyBeGood" })
+		db.addData({ username: "MaryBeBad" })
+		db.addData({ username: "ABlokeInThePub" })
+
+		const found = db.findDataById(
+			"c8063fae-5bed-4cc8-84ca-7a995b63fd27"
+		)
+		expect(found[0]).toBe(1)
+		expect(found[1].username).toBe("MaryBeBad")
+		expect(found[1].id).toBe("c8063fae-5bed-4cc8-84ca-7a995b63fd27")
+	})
+
+	it("should throw an error if no id is provided and be false if there is no entry with the provided id", () => {
+		db.addData({ username: "JohnyBeGood" })
+		db.addData({ username: "MaryBeBad" })
+		db.addData({ username: "ABlokeInThePub" })
+		expect(db.data.length).toBe(3)
+
+		expect(() => db.findDataById()).toThrowError(
+			"An ID must be provided"
+		)
+		expect(db.findDataById("46b")).toBe(false)
+	})
+
 	//Test removeData
 
 	it("should be able to find and remove an existing entry, using a provided id", () => {
