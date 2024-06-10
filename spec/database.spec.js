@@ -53,4 +53,10 @@ describe("UserDatabase", () => {
 
         expect(myUserDatabase.findById(1).username).toEqual('Mr_Pistachio')
      })
+
+     it("should have the same removeDataById method as injected database", () => {
+        myUserDatabase.removeById(1)
+    
+        expect(() => {myUserDatabase.findById(1)}).toThrowError('No data found with this ID')
+      })
 })

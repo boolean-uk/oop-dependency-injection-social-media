@@ -18,6 +18,10 @@ class UserDatabase{
     updateById(id, key, value) {
         return this.#database.updateById(id, key, value)
     }
+
+    removeById(id) {
+        return this.#database.removeById(id)
+    }
 }
 
 export default UserDatabase
