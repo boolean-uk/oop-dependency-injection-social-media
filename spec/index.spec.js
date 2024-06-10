@@ -13,25 +13,19 @@ describe('Database', () => {
     })
 
     it('should be able to add new data', () => {
-        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({name: 'something', age: 42})
 
         expect(database.data.length).toBe(1)
         expect(database.data[0].id).toBe(1)
         expect(database.data[0].name).toBe('something')
         expect(database.data[0].age).toBe(42)
 
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something else', age: 22})
 
         expect(database.data.length).toBe(2)
         expect(database.data[1].id).toBe(2)
         expect(database.data[1].name).toBe('something else')
         expect(database.data[1].age).toBe(22)
-    })
-
-    it('should throw an error when adding data without an id', () => {
-        expect(() => database.addData({name: 'something', age: 42})).toThrow('data must have an id')
-
-        expect(database.data.length).toBe(0)
     })
 
     it('should throw an error when adding data that is not an object', () => {
@@ -41,8 +35,8 @@ describe('Database', () => {
     })
 
     it('should find data by id', () => {
-        database.addData({id: 1, name: 'something', age: 42})
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something', age: 42})
+        database.addData({name: 'something else', age: 22})
 
         const result = database.findById(1)
         const result2 = database.findById(2)
@@ -52,22 +46,22 @@ describe('Database', () => {
     })
 
     it('should throw an error if data not found', () => {
-        database.addData({id: 1, name: 'something', age: 42})
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something', age: 42})
+        database.addData({name: 'something else', age: 22})
 
         expect(() => database.findById(3)).toThrow('data not found')
     })
 
     it('should throw an error if data not found when removing', () => {
-        database.addData({id: 1, name: 'something', age: 42})
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something', age: 42})
+        database.addData({name: 'something else', age: 22})
 
         expect(() => database.removeData(3)).toThrow('data not found')
     })
 
     it('should be able to remove data', () => {
-        database.addData({id: 1, name: 'something', age: 42})
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something', age: 42})
+        database.addData({name: 'something else', age: 22})
 
         const result = database.removeData(2)
 
@@ -76,17 +70,17 @@ describe('Database', () => {
     })
 
     it('should throw an error if data not found when updating', () => {
-        database.addData({id: 1, name: 'something', age: 42})
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something', age: 42})
+        database.addData({name: 'something else', age: 22})
 
-        expect(() => database.updateData(3, {id: 2, name: 'a test', age: 25})).toThrow('data not found')
+        expect(() => database.updateData(3, {name: 'a test', age: 25})).toThrow('data not found')
     })
 
     it('should be able to update data', () => {
-        database.addData({id: 1, name: 'something', age: 42})
-        database.addData({id: 2, name: 'something else', age: 22})
+        database.addData({name: 'something', age: 42})
+        database.addData({name: 'something else', age: 22})
 
-        const result = database.updateData(2, {id: 2, name: 'a test', age: 25})
+        const result = database.updateData(2, {name: 'a test', age: 25})
 
         expect(result).toEqual({id: 2, name: 'a test', age: 25})
         expect(database.data[1]).toEqual({id: 2, name: 'a test', age: 25})
@@ -106,25 +100,19 @@ describe('Userdatabase', () => {
     })
 
     it('should be able to add new data', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({username: 'something', age: 42})
 
         expect(userDatabase.userData.length).toBe(1)
         expect(userDatabase.userData[0].id).toBe(1)
         expect(userDatabase.userData[0].username).toBe('something')
         expect(userDatabase.userData[0].age).toBe(42)
 
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
         expect(userDatabase.userData.length).toBe(2)
         expect(userDatabase.userData[1].id).toBe(2)
         expect(userDatabase.userData[1].username).toBe('somethingelse')
         expect(userDatabase.userData[1].age).toBe(22)
-    })
-
-    it('should throw an error when adding data without an id', () => {
-        expect(() => userDatabase.addData({username: 'something', age: 42})).toThrow('data must have an id')
-
-        expect(userDatabase.userData.length).toBe(0)
     })
 
     it('should throw an error when adding invalid data', () => {
@@ -136,7 +124,7 @@ describe('Userdatabase', () => {
 
         expect(userDatabase.userData.length).toBe(0)
 
-        userDatabase.addData({id: 1, username: 'something', age: 42})
+        userDatabase.addData({username: 'something', age: 42})
 
         expect(() => userDatabase.addData({username: 'something', age: 42})).toThrow('data must have a unique username of no less than 6 characters long')
 
@@ -150,8 +138,8 @@ describe('Userdatabase', () => {
     })
 
     it('should find data by id', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'something', age: 42})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
         const result = userDatabase.findById(1)
         const result2 = userDatabase.findById(2)
@@ -161,22 +149,22 @@ describe('Userdatabase', () => {
     })
 
     it('should throw an error if data not found', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'something', age: 42})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
         expect(() => userDatabase.findById(3)).toThrow('data not found')
     })
 
     it('should throw an error if data not found when removing', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'something', age: 42})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
         expect(() => userDatabase.removeData(3)).toThrow('data not found')
     })
 
     it('should be able to remove data', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'something', age: 42})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
         const result = userDatabase.removeData(2)
 
@@ -185,17 +173,17 @@ describe('Userdatabase', () => {
     })
 
     it('should throw an error if data not found when updating', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'something', age: 42})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
-        expect(() => userDatabase.updateData(3, {id: 2, username: 'testing', age: 25})).toThrow('data not found')
+        expect(() => userDatabase.updateData(3, {username: 'testing', age: 25})).toThrow('data not found')
     })
 
     it('should be able to update data', () => {
-        userDatabase.addData({id: 1, username: 'something', age: 42})
-        userDatabase.addData({id: 2, username: 'somethingelse', age: 22})
+        userDatabase.addData({username: 'something', age: 42})
+        userDatabase.addData({username: 'somethingelse', age: 22})
 
-        const result = userDatabase.updateData(2, {id: 2, username: 'testing', age: 25})
+        const result = userDatabase.updateData(2, {username: 'testing', age: 25})
 
         expect(result).toEqual({id: 2, username: 'testing', age: 25})
         expect(userDatabase.userData[1]).toEqual({id: 2, username: 'testing', age: 25})
@@ -215,14 +203,14 @@ describe('Postdatabase', () => {
     })
 
     it('should be able to add new data', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
 
         expect(postDatabase.postData.length).toBe(1)
         expect(postDatabase.postData[0].id).toBe(1)
         expect(postDatabase.postData[0].title).toBe('something that is at least 5 words long')
         expect(postDatabase.postData[0].content).toBe('some content that should be at least 10 words long to test if everything works')
 
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
         expect(postDatabase.postData.length).toBe(2)
         expect(postDatabase.postData[1].id).toBe(2)
@@ -238,12 +226,6 @@ describe('Postdatabase', () => {
         expect(() => postDatabase.addData({something: 'something', somethingElse: 'some content'})).toThrow('post must have a title of no less than 5 words long and a content of no less tham 10 words long')
     })
 
-    it('should throw an error when adding data without an id', () => {
-        expect(() => postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})).toThrow('data must have an id')
-
-        expect(postDatabase.postData.length).toBe(0)
-    })
-
     it('should throw an error when adding data that is not an object', () => {
         expect(() => postDatabase.addData('something')).toThrow('data must be an object')
 
@@ -251,8 +233,8 @@ describe('Postdatabase', () => {
     })
 
     it('should find data by id', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
         const result = postDatabase.findById(1)
         const result2 = postDatabase.findById(2)
@@ -262,22 +244,22 @@ describe('Postdatabase', () => {
     })
 
     it('should throw an error if data not found', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
         expect(() => postDatabase.findById(3)).toThrow('data not found')
     })
 
     it('should throw an error if data not found when removing', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
 
         expect(() => postDatabase.removeData(3)).toThrow('data not found')
     })
 
     it('should be able to remove data', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
         const result = postDatabase.removeData(2)
 
@@ -286,28 +268,28 @@ describe('Postdatabase', () => {
     })
 
     it('should throw an error if data not found when updating', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
-        expect(() => postDatabase.updateData(3, {id: 2, title: 'a test that is at least 5 words long', content: 'test content that should be at least 10 words long to test if everything works'})).toThrow('data not found')
+        expect(() => postDatabase.updateData(3, {title: 'a test that is at least 5 words long', content: 'test content that should be at least 10 words long to test if everything works'})).toThrow('data not found')
     })
 
     it('should be able to update data', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
-        const result = postDatabase.updateData(2, {id: 2, title: 'a test that is at least 5 words long', content: 'test content that should be at least 10 words long to test if everything works'})
+        const result = postDatabase.updateData(2, {title: 'a test that is at least 5 words long', content: 'test content that should be at least 10 words long to test if everything works'})
 
         expect(result).toEqual({id: 2, title: 'a test that is at least 5 words long', content: 'test content that should be at least 10 words long to test if everything works'})
         expect(postDatabase.postData[1]).toEqual({id: 2, title: 'a test that is at least 5 words long', content: 'test content that should be at least 10 words long to test if everything works'})
     })
 
     it('should throw an error if new data not valid', () => {
-        postDatabase.addData({id: 1, title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
-        postDatabase.addData({id: 2, title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something that is at least 5 words long', content: 'some content that should be at least 10 words long to test if everything works'})
+        postDatabase.addData({title: 'something else that is at least 5 words long', content: 'more content that should be at least 10 words long to test if everything works'})
 
-        expect(() => postDatabase.updateData(2, {id: 2, title: 'a test', content: 'test content'})).toThrow('post must have a title of no less than 5 words long and a content of no less tham 10 words long')
+        expect(() => postDatabase.updateData(2, {title: 'a test', content: 'test content'})).toThrow('post must have a title of no less than 5 words long and a content of no less tham 10 words long')
 
-        expect(() => postDatabase.updateData(2, {id: 2, something: 'a test', somethingElse: 'test content'})).toThrow('post must have a title of no less than 5 words long and a content of no less tham 10 words long')
+        expect(() => postDatabase.updateData(2, {something: 'a test', somethingElse: 'test content'})).toThrow('post must have a title of no less than 5 words long and a content of no less tham 10 words long')
     })
 })

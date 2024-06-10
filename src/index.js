@@ -1,8 +1,10 @@
 class Database {
     #allData
+    #idCounter
 
     constructor() {
         this.#allData = []
+        this.#idCounter = 1
     }
 
     get data() {
@@ -14,11 +16,9 @@ class Database {
             throw 'data must be an object'
         }
 
-        if(!data.id) {
-            throw 'data must have an id'
-        }
-
+        data.id = this.#idCounter
         this.#allData.push(data)
+        this.#idCounter++
     }
 
     findById(id) {
@@ -44,6 +44,8 @@ class Database {
         const foundData = this.findById(id)
         const foundDataIndex = this.#allData.indexOf(foundData)
 
+        newData.id = foundData.id
+
         this.#allData.splice(foundDataIndex, 1, newData)
 
         return this.#allData[foundDataIndex]
@@ -65,7 +67,7 @@ class UserDatabase {
         if (typeof data !== 'object' || data === null) {
             throw 'data must be an object'
         }
-        
+
         this.checkValidData(data)
 
         this.#data.addData(data)
