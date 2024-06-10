@@ -39,6 +39,13 @@ class Database {
 
         return foundData
     }
+
+    updateData(id, newData) {
+        const foundData = this.findById(id)
+        const foundDataIndex = this.#allData.indexOf(foundData)
+
+        this.#allData.splice(foundDataIndex, 1, newData)
+    }
 }
 
 

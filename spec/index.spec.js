@@ -74,4 +74,20 @@ describe('Database', () => {
         expect(result).toEqual({id: 2, name: 'something else', age: 22})
         expect(database.data.length).toBe(1)
     })
+
+    it('should throw an error if data not found when updating', () => {
+        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({id: 2, name: 'something else', age: 22})
+
+        expect(() => database.updateData(3)).toThrow('data not found')
+    })
+
+    it('should be able to update data', () => {
+        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({id: 2, name: 'something else', age: 22})
+
+        database.updateData(2, {id: 2, name: 'a test', age: 25})
+
+        expect(database.data[1]).toEqual({id: 2, name: 'a test', age: 25})
+    })
 })
