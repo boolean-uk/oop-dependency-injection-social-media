@@ -81,9 +81,16 @@ describe("UserDatabase", () => {
       myUserDatabase.updateById(1, "username", "franklin_jr");
     }).toThrowError("Usernames must be unique and over 5 characters");
   });
+
+  it("should be able to have new data added", () => {
+    myUserDatabase.addData('jonny poopoopants', 'jonny@poopoopants.com')
+
+    const foundPost = myUserDatabase.getData().find((user) => user.username === 'jonny poopoopants')
+    expect(foundPost.username).toEqual('jonny poopoopants')
+  })
 });
 
-describe("PostrDatabase", () => {
+describe("PostDatabase", () => {
   let myPostDatabase;
 
   beforeEach(() => {
@@ -128,6 +135,5 @@ describe("PostrDatabase", () => {
 
     const foundPost = myPostDatabase.getData().find((posts) => posts.title === 'Why C++ is the worst thing sliced cheese')
     expect(foundPost.title).toEqual('Why C++ is the worst thing sliced cheese')
-
   })
 });

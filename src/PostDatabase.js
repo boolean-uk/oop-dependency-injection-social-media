@@ -16,6 +16,9 @@ class PostDatabase {
   }
 
   addData(title, content) {
+    if (title.split(" ").length <= 4) {
+        throw new Error("Post titles must be more than 5 words")
+      }
     this.#database.addData('title', title, 'content', content)
   }
 
