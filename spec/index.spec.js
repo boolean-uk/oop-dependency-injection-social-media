@@ -21,4 +21,13 @@ describe('Database', () => {
         const find = database.findByID(1)
         expect(find.username).toBe('billybob')
     })
+    it('should remove data by id', () => {
+        const user = new User(1, 'billybob', 'newpassword')
+        database.add(user)
+        const user1 = new User(2, 'Jimothy', 'jdizzle')
+        database.add(user1)
+        const removed = database.remove(1)
+        expect(database.entries.length).toBe(1)
+        expect(database.entries[0].username).toBe('Jimothy')
+    })
 })
