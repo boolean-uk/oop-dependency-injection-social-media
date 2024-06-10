@@ -57,4 +57,21 @@ describe('Database', () => {
 
         expect(() => database.findById(3)).toThrow('data not found')
     })
+
+    it('should throw an error if data not found when removing', () => {
+        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({id: 2, name: 'something else', age: 22})
+
+        expect(() => database.removeData(3)).toThrow('data not found')
+    })
+
+    it('should be able to remove data', () => {
+        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({id: 2, name: 'something else', age: 22})
+
+        const result = database.removeData(2)
+
+        expect(result).toEqual({id: 2, name: 'something else', age: 22})
+        expect(database.data.length).toBe(1)
+    })
 })

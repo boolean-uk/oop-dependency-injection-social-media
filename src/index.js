@@ -30,6 +30,15 @@ class Database {
 
         return foundData
     }
+
+    removeData(id) {
+        const foundData = this.findById(id)
+        const foundDataIndex = this.#allData.indexOf(foundData)
+
+        this.#allData.splice(foundDataIndex, 1)
+
+        return foundData
+    }
 }
 
 
