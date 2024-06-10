@@ -149,6 +149,26 @@ describe('user database', () => {
             userDatabase.updateUser(userInfo2.id, userUpdated)
         }).toThrowError('Usernames must be unique')
     })
+
+    it('allows a user to create a post in their database', () => {
+        const user = { username: 'TonyDanzaFan28' }
+
+        const post = {
+            title: 'I swear this is a title',
+            content:
+                "I seriously have to write at least 10 words? That's insane!",
+        }
+
+        const id = idCreator.create()
+
+        const currentUser = userDatabase.addUser(id, user)
+
+        currentUser.posts.addPost(idCreator.create(), post)
+
+        expect(currentUser.posts.viewDatabase()[0].title).toBe(
+            'I swear this is a title'
+        )
+    })
 })
 
 describe('post database', () => {
@@ -182,7 +202,8 @@ describe('post database', () => {
     it('throws an error when adding a post with a title shorter than 5 words', () => {
         const post = {
             title: 'Short title',
-            content: "I seriously have to write at least 10 words? That's insane!",
+            content:
+                "I seriously have to write at least 10 words? That's insane!",
         }
         expect(() => {
             postDatabase.addPost(idCreator.create(), post)
@@ -208,7 +229,7 @@ describe('post database', () => {
         const post2 = {
             title: 'It is a valid title here',
             content:
-                "Here is another post content that has more than ten words, just to make sure it passes the test.",
+                'Here is another post content that has more than ten words, just to make sure it passes the test.',
         }
         const id = idCreator.create()
         postDatabase.addPost(id, post1)
@@ -259,9 +280,9 @@ describe('post database', () => {
         postDatabase.updatePost(postInfo.id, postUpdated)
 
         expect(postDatabase.viewDatabase().length).toBe(1)
-        expect(postDatabase.searchByTitle('I swear this is a title').updated).toBe(
-            true
-        )
+        expect(
+            postDatabase.searchByTitle('I swear this is a title').updated
+        ).toBe(true)
     })
 
     it('throws an error when updating a post with a title shorter than 5 words', () => {

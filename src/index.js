@@ -53,6 +53,7 @@ class FunctionalDatabase {
     }
 
     searchByKey(key, value) {
+        
         const searchTarget = this.viewDatabase().find((element) => {
             return element[key] === value
         })
@@ -109,7 +110,7 @@ class UserDatabase extends FunctionalDatabase {
             throw new Error('Id already in use')
         }
 
-        const newUser = { ...user, id: id }
+        const newUser = new User(id, user.username)
 
         this.addItem(newUser)
 
@@ -202,6 +203,14 @@ class IdCreator {
         const id = (Date.now() * Math.random()).toFixed(0)
 
         return id
+    }
+}
+
+class User {
+    constructor(id, username) {
+        this.id = id
+        this.username = username
+        this.posts = new PostDatabase(new Database())
     }
 }
 
