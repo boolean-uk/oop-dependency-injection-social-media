@@ -54,4 +54,9 @@ describe('Database', () => {
         expect(userDatabase.entries.length).toBe(1)
         expect(userDatabase.entries[0].username).toBe('Jimothy')
     })
+    it('should add a post to the database', () => {
+        postDatabase.addPost('First Post on the site', 'So excited to try this new social media today wow')
+        expect(postDatabase.entries.length).toBe(1)
+        expect(postDatabase.entries[0].title).toBe('First Post on the site')
+    })
 })
