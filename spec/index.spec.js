@@ -1,13 +1,10 @@
+import exp from "constants";
 import Database, { UserDatabase, PostDatabase, User, Post } from "../src/index.js";
 
 describe('Database', () => {
     let database
-    let postDatabase
-    let userDatabase
     beforeEach(() => {
         database = new Database()
-        userDatabase = new UserDatabase()
-        postDatabase = new PostDatabase()
     })
     it('should add any data to the database array', () => {
         const user = new User(1, 'billybob', 'newpassword')
@@ -29,6 +26,12 @@ describe('Database', () => {
         const removed = database.remove(1)
         expect(database.entries.length).toBe(1)
         expect(database.entries[0].username).toBe('Jimothy')
+    })
+})
+describe('UserDatabase', () => {
+    let userDatabase
+    beforeEach(() => {
+        userDatabase = new UserDatabase()
     })
     it('should add a user to the database array', () => {
         userDatabase.addUser('billybob', 'newpassword')
@@ -54,9 +57,22 @@ describe('Database', () => {
         expect(userDatabase.entries.length).toBe(1)
         expect(userDatabase.entries[0].username).toBe('Jimothy')
     })
+})
+describe('PostDatabase', () => {
+    let postDatabase
+    beforeEach(() => {
+        postDatabase = new PostDatabase()
+    })
     it('should add a post to the database', () => {
         postDatabase.addPost('First Post on the site', 'So excited to try this new social media today wow')
         expect(postDatabase.entries.length).toBe(1)
         expect(postDatabase.entries[0].title).toBe('First Post on the site')
+    })
+    it('should remove a post by ID', () => {
+        postDatabase.addPost('First Post on the site', 'So excited to try this new social media today wow')
+        postDatabase.addPost('Trying out a new post', 'Testing to see if the new site is up and running')
+        postDatabase.removePost(1)
+        expect(postDatabase.entries.length).toBe(1)
+        expect(postDatabase.entries[0].title).toBe('Trying out a new post')
     })
 })
