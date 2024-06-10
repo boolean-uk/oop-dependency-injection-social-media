@@ -75,4 +75,9 @@ describe('PostDatabase', () => {
         expect(postDatabase.entries.length).toBe(1)
         expect(postDatabase.entries[0].title).toBe('Trying out a new post')
     })
+    it('should find a post by ID', () => {
+        postDatabase.addPost('Trying out a new post', 'Testing to see if the new site is up and running')
+        const found = postDatabase.findPost(1)
+        expect(found.title).toBe('Trying out a new post')
+    })
 })
