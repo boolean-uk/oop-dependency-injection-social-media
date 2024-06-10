@@ -22,7 +22,13 @@ class Database {
     }
 
     findById(id) {
-        return this.#allData.find((data) => data.id === id)
+        const foundData = this.#allData.find((data) => data.id === id)
+
+        if(!foundData) {
+            throw 'data not found'
+        }
+
+        return foundData
     }
 }
 

@@ -50,4 +50,11 @@ describe('Database', () => {
         expect(result).toEqual({id: 1, name: 'something', age: 42})
         expect(result2).toEqual({id: 2, name: 'something else', age: 22})
     })
+
+    it('should throw an error if data not found', () => {
+        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({id: 2, name: 'something else', age: 22})
+
+        expect(() => database.findById(3)).toThrow('data not found')
+    })
 })
