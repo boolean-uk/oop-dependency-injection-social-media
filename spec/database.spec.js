@@ -109,13 +109,13 @@ describe("PostrDatabase", () => {
     expect(myPostDatabase.findById(8).title).toEqual("Why fortran is the most whimsical language");
   });
 
-  // it("should have the same removeDataById method as injected database", () => {
-  //   myUserDatabase.removeById(1);
+  it("should have the same removeDataById method as injected database", () => {
+    myPostDatabase.removeById(1);
 
-  //   expect(() => {
-  //     myPostDatabase.findById(1);
-  //   }).toThrowError("No data found with this ID");
-  // });
+    expect(() => {
+      myPostDatabase.findById(1);
+    }).toThrowError("No data found with this ID");
+  });
 
   // it("should throw an error when trying to update username with a string of less than 5 characters", () => {
   //   expect(() => {
