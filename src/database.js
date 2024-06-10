@@ -42,7 +42,7 @@ class Database {
   update(id, newData) {
     const index = this.findById(id)
     
-    if(!index) {
+    if(index === -1 || index === undefined) {
       return console.log('Could not find the user!')
     } else {
       this.#myDatastore[index].name = newData
