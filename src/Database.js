@@ -8,6 +8,10 @@ class Database {
     getData() {
         return [...this.#data]
     }
+
+    findById(id) {
+        return this.#data.find((object) => object.id = id)
+    }
 }
 
 export default Database
