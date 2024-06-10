@@ -20,6 +20,10 @@ class Database {
 
         this.#allData.push(data)
     }
+
+    findById(id) {
+        return this.#allData.find((data) => data.id === id)
+    }
 }
 
 

@@ -39,4 +39,15 @@ describe('Database', () => {
 
         expect(database.data.length).toBe(0)
     })
+
+    it('should find data by id', () => {
+        database.addData({id: 1, name: 'something', age: 42})
+        database.addData({id: 2, name: 'something else', age: 22})
+
+        const result = database.findById(1)
+        const result2 = database.findById(2)
+
+        expect(result).toEqual({id: 1, name: 'something', age: 42})
+        expect(result2).toEqual({id: 2, name: 'something else', age: 22})
+    })
 })
