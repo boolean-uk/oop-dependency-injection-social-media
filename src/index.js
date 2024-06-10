@@ -37,6 +37,29 @@ class Database {
     }
 }
 
+class UserDatabase extends Database{
+    constructor() {
+        super()
+    }
+
+    addUser(user) {
+        super.add(user)
+    }
+
+    findUser(id) {
+        super.findByID(id)
+    }
+
+    removeUser(id) {
+        super.remove(id)
+    }
+}
+
 const data = new Database()
 data.add({id: 1, post: 'Hello there'})
+
+const user = new UserDatabase()
+user.addUser({id: 1, user: 'Billy Bob'})
 data.entries
+
+
