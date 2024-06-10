@@ -50,19 +50,3 @@ class UserDatabase {
 
 export default UserDatabase
 
-// const db = new Database()
-// const nud = new UserDatabase(new Database())
-
-// nud.addUser({ username: "MackTheKnife" })
-// nud.addUser({ username: "JackTheRipper" })
-// nud.addUser({ username: "SackTheKnife" })
-// console.log(nud.getData())
-// nud.addUser({ username: "MackTheKnife" })
-
-// nud.addUser({username:'Mac'})
-// console.log('afterrrr',nud.getData());
-// nud.addUser({ username: 'Mack' })
-// console.log('tttt',nud.findUserById("cb0cad71-3a90-46dc-bb5f-f74518c9457a"))
-// nud.removeUser("cb0cad71-3a90-46dc-bb5f-f74518c9457a")
-
-// console.log(nud.getData());

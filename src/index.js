@@ -20,9 +20,6 @@ class Database {
 		this.#data = data
 	}
 
-	// get data() {
-	// 	return [...this.#data]
-	// }
 	getData() {
 		return [...this.#data]
 	}
@@ -90,13 +87,3 @@ class Database {
 }
 
 export default Database
-
-
-// const udb = new Database()
-// udb.addData({ userName: "JohnyBGood" })
-// udb.addData({ userName: "MaryBeBad" })
-// udb.addData({ userName: "ABlokeInThePub" })
-
-// console.log(udb.getData());
-
-// console.log(udb.findDataById('c8063fae-5bed-4cc8-84ca-7a995b63fd27'))
