@@ -57,15 +57,15 @@ class Database {
 
 export { Database }
 
-const mydata = new Database()
+// const mydata = new Database()
 
-mydata.add('farshad')
-mydata.add('will')
-mydata.add('nathan')
-mydata.remove(3)
-mydata.add()
-mydata.findById(11)
-mydata.update(4, 'Azam')
-mydata.add('shahi')
-mydata.update(5, 'shaian')
-console.log(mydata.myDatabase)
+// mydata.add('farshad')
+// mydata.add('will')
+// mydata.add('nathan')
+// mydata.remove(3)
+// mydata.add()
+// mydata.findById(11)
+// mydata.update(4, 'Azam')
+// mydata.add('shahi')
+// mydata.update(5, 'shaian')
+// console.log(mydata.myDatabase)
