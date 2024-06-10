@@ -35,4 +35,9 @@ describe('Database', () => {
         expect(userDatabase.entries.length).toBe(1)
         expect(userDatabase.entries[0].username).toBe('billybob')
     })
+    it('should find a username to check if it already exists', () => {
+        userDatabase.addUser('Jimothy', 'jdizzle')
+        const findUserName = userDatabase.findUserName('Jimothy')
+        expect(findUserName).toEqual(new User(1, 'Jimothy', 'jdizzle'))
+    })
 })
