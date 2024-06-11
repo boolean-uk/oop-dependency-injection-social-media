@@ -56,12 +56,64 @@ class UserDataBase {
     constructor(dataBase) {
         this.#dataBase = dataBase
     }
+    getData() {
+        return [...this.#dataBase.getData()]
+    }
+    findById(id) {
+        let response = this.#dataBase.findById(id)
+        return response
+    }
+    remove(id) {
+        this.#dataBase.remove(id)
+    }
+    add(object) {
+        if (typeof object !== "object") {
+            throw "needs to be an object"
+        }
+        if (object.user.length >= 6) {
+            this.#dataBase.add(object)
+        }
+    }
+    update(id, object) {
+        if (typeof object !== "object") {
+            throw "needs to be an object"
+        }
+        if (object.user.length >= 6) {
+            this.#dataBase.update(id, object)
+        }
+    }
 }
 
 class PostDataBase {
     #dataBase
     constructor(dataBase) {
         this.#dataBase = dataBase
+    }
+    getData() {
+        return [...this.#dataBase.getData()]
+    }
+    findById(id) {
+        let response = this.#dataBase.findById(id)
+        return response
+    }
+    remove(id) {
+        this.#dataBase.remove(id)
+    }
+    add(object) {
+        if (typeof object !== "object") {
+            throw "needs to be an object"
+        }
+        if (object.title.length >= 5 && object.content.length >= 10) {
+            this.#dataBase.add(object)
+        }
+    }
+    update(id, object) {
+        if (typeof object !== "object") {
+            throw "needs to be an object"
+        }
+        if (object.title.length >= 5 && object.content.length >= 10) {
+            this.#dataBase.update(id, object)
+        }
     }
 }
 

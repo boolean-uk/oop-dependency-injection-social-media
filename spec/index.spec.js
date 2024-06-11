@@ -40,16 +40,19 @@ describe("UserDataBase", () => {
         expect(userDataBase.getData()).toEqual([{id: 1, user: "Alistair"}, {id: 2, user: "Oliver"}])
     })
     it("should be able to add an user if at least 6 characters", () => {
-
+        userDataBase.add({user: "Maximus"})
+        expect(userDataBase.getData()).toEqual([{id: 1, user: "Alistair"}, {id: 2, user: "Oliver"}, {id: 10, user: "Maximus"}])
     })
     it("should remove a user from the database", () => {
-
+        userDataBase.remove(2)
+        expect(userDataBase.getData()).toEqual([{id: 1, user: "Alistair"}])
     })
     it("should return the object by id", () => {
-
+        expect(userDataBase.findById(1)).toEqual({id: 1, user: "Alistair"})
     })
     it("should update an user by id if user at least 6 characters", () => {
-
+        userDataBase.update(2, {id: 2, user: "Jenkins"})
+        expect(userDataBase.getData()).toEqual([{id: 1, user: "Alistair"}, {id: 2, user: "Jenkins"}])
     })
 })
 
@@ -65,15 +68,18 @@ describe("PostDataBase", () => {
         expect(postDataBase.getData()).toEqual([{id: 1, title: "Got a job", content: "Started working at a local food shop"}, {id: 2, title: "Thought I looked cute", content: "Might delete later"}])
     })
     it("should be able to add an user if title.length >= 5, content.length >= 10", () => {
-
+        postDataBase.add({title: "new title", content: "adding posts to data"})
+        expect(postDataBase.getData()).toEqual([{id: 1, title: "Got a job", content: "Started working at a local food shop"}, {id: 2, title: "Thought I looked cute", content: "Might delete later"}, {id: 10, title: "new title", content: "adding posts to data"}])
     })
     it("should remove a user from the database", () => {
-
+        postDataBase.remove(2)
+        expect(postDataBase.getData()).toEqual([{id: 1, title: "Got a job", content: "Started working at a local food shop"}])
     })
     it("should return the object by id", () => {
-
+        expect(postDataBase.findById(1)).toEqual({id: 1, title: "Got a job", content: "Started working at a local food shop"})
     })
     it("should update an post by id if title.length >= 5, content.length >= 10", () => {
-        
+        postDataBase.update(2, {id: 2, title: "changing", content: "the content to new"})
+        expect(postDataBase.getData()).toEqual([{id: 1, title: "Got a job", content: "Started working at a local food shop"}, {id: 2, title: "changing", content: "the content to new"}])
     })
 })
