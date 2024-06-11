@@ -7,8 +7,8 @@ class UserDatabase {
 
   add(name) {
     const founded = this.findByName(name)
-    const length = this.userRules(name)
-    if(founded === true || length === false){
+    const rules = this.userRules(name)
+    if(founded === true || rules === false){
       return 0
     } else this.userData.add(name)
   }
@@ -22,7 +22,7 @@ class UserDatabase {
   }
 
   userRules(name) {
-    if(name.length > 5) return true
+    if(name.length > 5 && typeof name !== 'number') return true
     else {
       console.log(`${name} is less than 6 characters!`)
       return false
