@@ -44,9 +44,10 @@ class UserDatabase {
 	}
 
 	updateUser(id, data) {
-		return this.#database.updateData(id, data)
+		 this.#database.updateData(id, data)
 	}
 }
 
 export default UserDatabase
+
 

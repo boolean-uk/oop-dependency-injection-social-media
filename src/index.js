@@ -72,11 +72,11 @@ class Database {
 		}
 		if (typeof newData !== "object") {
 			throw new Error(
-				`New data must be an object with a numerical ID`
+				`New data must be an object`
 			)
 		}
 		const index = this.findDataById(id)[0]
-		if (index) {
+		if (index !== false) {
 			this.#data[index] = { ...this.#data[index], ...newData }
 		} else {
 			throw new Error(

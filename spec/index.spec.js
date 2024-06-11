@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 import Database from "../src/index.js"
 import UserDatabase from "../src/userDB.js"
+import PostDataBase from "../src/postDB.js"
 
 describe("Database", () => {
 	let db
@@ -202,7 +203,7 @@ describe("UserDatabase", () => {
 		)
 	})
 
-	//Test updateData
+	//Test updateUser
 
 	it("should be able to update an entry by id with the provided data", () => {
 		udb.addUser({ username: "JohnyBeGood" })
@@ -229,7 +230,145 @@ describe("UserDatabase", () => {
 				"No data with id = 46b were found in the database"
 			)
 		)
-		expect(() => udb.updateUser()).toThrowError(
+		expect(() =>
+			udb.updateUser("", {
+				userName: "AnotherBlokeInThePub",
+			})
+		).toThrowError(
+			"An ID of the entry to be updated, must be provided"
+		)
+	})
+})
+
+describe("PostDatabase", () => {
+	let pdb
+
+	beforeEach(() => {
+		pdb = new PostDataBase(new Database())
+	})
+
+	// Test Validity
+
+	it("should be an instance of PostDatabace", () => {
+		expect(pdb).toBeInstanceOf(PostDataBase)
+	})
+
+	it("should start with data as an empty array", () => {
+		expect(pdb.getData().length).toBe(0)
+	})
+
+	//Test addPost
+
+	it("should be able to add one or more entries with different auto-generated ids", () => {
+		pdb.addPost({
+			title: "Lorem ipsum dolor sit amet",
+			content:
+				"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+		})
+		expect(pdb.getData().length).toBe(1)
+
+		pdb.addPost({
+			title: "2Lorem ipsum dolor sit amet2",
+			content:
+				"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+		})
+		expect(pdb.getData().length).toBe(2)
+		expect(pdb.getData()[0]).toEqual({
+			title: "Lorem ipsum dolor sit amet",
+			content:
+				"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+			id: "cb0cad71-3a90-46dc-bb5f-f74518c9457a",
+		})
+		expect(pdb.getData()[1]).toEqual({
+			title: "2Lorem ipsum dolor sit amet2",
+			content:
+				"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+			id: "c8063fae-5bed-4cc8-84ca-7a995b63fd27",
+		})
+	})
+
+	it("should throw an error if wrong type of data, no data or invalid title/content are provided to addPost", () => {
+		expect(() => pdb.addPost("Johny")).toThrowError(
+			"The data provided must be an object"
+		)
+		expect(() => pdb.addPost({ username: "Mack" })).toThrowError(
+			"A post must have a title and content"
+		)
+		expect(() => pdb.addPost()).toThrowError(
+			"The data provided must be an object"
+		)
+
+		expect(() =>
+			pdb.addPost({
+				title: "Lorem ",
+				content:
+					"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+			})
+		).toThrowError(`A post's title must be at least 5 words long`)
+		expect(() =>
+			pdb.addPost({
+				title: "Lorem ipsum dolor sit amet",
+				content: "Nam malesuada",
+			})
+		).toThrowError(`A post's content must be at least 10 words long`)
+	})
+
+	//Test updatePost
+	it("should be able to update an entry by id with the provided data", () => {
+		pdb.addPost({
+			title: "Lorem ipsum dolor sit amet",
+			content:
+				"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+		})
+
+		expect(pdb.getData()[0].title).toBe("Lorem ipsum dolor sit amet")
+		expect(pdb.getData()[0].content).toBe(
+			"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,"
+		)
+		expect(pdb.getData()[0].id).toBe(
+			"cb0cad71-3a90-46dc-bb5f-f74518c9457a"
+		)
+
+		pdb.updatePost("cb0cad71-3a90-46dc-bb5f-f74518c9457a", {
+			title: "Lorem ipsum dolor sit amet",
+			content:
+				"A different lorem ipsum dolor sit amet etc etc etc etc",
+		})
+		expect(pdb.getData()[0].content).toBe(
+			"A different lorem ipsum dolor sit amet etc etc etc etc"
+		)
+	})
+
+	it("should throw an error if wrong or no id is provided to updatePost", () => {
+		pdb.addPost({
+			title: "Lorem ipsum dolor sit amet",
+			content:
+				"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,",
+		})
+		expect(pdb.getData()[0].title).toBe("Lorem ipsum dolor sit amet")
+		expect(pdb.getData()[0].content).toBe(
+			"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,"
+		)
+
+		expect(() =>
+			updatePost("46b", {
+				title: "Lorem ipsum dolor sit amet",
+				content:
+					"A different lorem ipsum dolor sit amet etc etc etc etc",
+			}).toThrowError(
+				"No data with id = 46b were found in the database"
+			)
+		)
+		expect(pdb.getData()[0].content).toBe(
+			"Nam malesuada, nunc sed mollis tempus, est dui rutrum velit,"
+		)
+		expect(() =>
+			pdb.updatePost('',{
+				title: "Lorem ipsum dolor sit amet",
+				content:
+					"A different lorem ipsum dolor sit amet etc etc etc etc",
+			})
+		).toThrowError(
 			"An ID of the entry to be updated, must be provided"
 		)
 	})
