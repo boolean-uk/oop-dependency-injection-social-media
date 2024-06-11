@@ -155,27 +155,3 @@ export class Post {
     this.content = content;
   }
 }
-
-const user = new UserDatabase(new Database());
-
-user.add(new User("Hany", "Nany", 35, "bbbbbb"));
-
-user.add(new User("Samiy", "Perdo", 35, "bbbbbbb"));
-
-const post = new PostDatabase(new Database());
-post.add(
-  new Post("hiiii", "I think that now it is working, we have to learn more ")
-);
-post.add(
-  new Post(
-    "havascript",
-    "I like it, it is a very powerful language and so popular"
-  )
-);
-
-post.add(
-  new Post(
-    "c# language",
-    "I don't know anything about it, but I heard that it is not that easy"
-  )
-);
