@@ -34,6 +34,7 @@ class Database {
 			throw new Error("The data provided must be an object")
 		} else {
 			// const newData = { id: this.idGenerator(), ...data }
+			// The code bellow is to make testing easier. The commended code above should be used in production
 			data.id = this.createIds()
 			const newData = { ...data }
 			this.#data.push(newData)
