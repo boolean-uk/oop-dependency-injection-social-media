@@ -52,9 +52,10 @@ class Database {
     }
 }
 
-class UserDatabase extends Database{
-    constructor() {
-        super()
+class UserDatabase {
+    #database
+    constructor(database = new Database()) {
+        this.#database = database
         this.id = 1
     }
 
@@ -66,30 +67,31 @@ class UserDatabase extends Database{
             !this.findUserName(username)
         ) {
             this.id++
-            super.add(newUser)
+            this.#database.add(newUser)
         } else throw 'Invalid username, must be at least 6 characters long'
     }
 
     findUserName(username) {
-        const entries = super.entries
+        const entries = this.#database.entries
         const found = entries.find((d) => d.username === username)
         return found
     }
 
     findUserByID(id) {
-        const found = super.findByID(id)
+        const found = this.#database.findByID(id)
         return found
     }
 
     removeUser(id) {
-        const remove = super.remove(id)
+        const remove = this.#database.remove(id)
         return remove
     }
 }
 
-class PostDatabase extends Database {
-    constructor() {
-        super()
+class PostDatabase {
+    #database
+    constructor(database = new Database()) {
+        this.#database = database
         this.id = 1
     }
 
@@ -103,18 +105,18 @@ class PostDatabase extends Database {
             contentWords.length >= 10
         ) {
             this.id++
-            super.add(newPost)
+            this.#database.add(newPost)
         } else 
         throw 'Invalid post, please ensure title is min 5 words & content is min 10 words'
     }
 
     removePost(id) {
-        const newPosts = super.remove(id)
+        const newPosts = this.#database.remove(id)
         return newPosts
     }
 
     findPost(id) {
-        const found = super.findByID(id)
+        const found = this.#database.findByID(id)
         return found
     }
 }

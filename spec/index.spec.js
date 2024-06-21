@@ -1,4 +1,3 @@
-import exp from "constants";
 import Database, { UserDatabase, PostDatabase, User, Post } from "../src/index.js";
 
 describe('Database', () => {
