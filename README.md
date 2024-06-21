@@ -10,7 +10,7 @@ Create a social media system that can organise users and posts
 
 - Create a `Database` class that accepts an array in its constructor
     - This class should be able to add, remove, findById and update data in its array without letting someone directly access the array
-    - It should not care about the specific type of data inside the array, but it should assume that every piece of data is at least an object with a numeric `id` property
+    - It should not care about the specific type of data inside the array, but it should assume that every piece of data is at least an object with a numeric `id` property. If the input is not an object or if it doesn't have a `id` property, throw an error.
 - Create a `UserDatabase` and a `PostDatabase` class
     - Both of these classes should have a Database injected into them and provide the same add, remove, find and update functionality specifically for users and posts respectively
     - These new classes should not expose the internal `Database` class directly, that should be private
