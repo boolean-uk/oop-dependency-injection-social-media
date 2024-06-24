@@ -60,13 +60,13 @@ describe('PostDatabase', () => {
     });
 
     it('should add a post', () => {
-        const post = { id: 1, title: 'Post Title', content: 'Content with more than 10 words' };
+        const post = { id: 1, title: 'Post Title One, Two, Three, Four, Five', content: 'Content with more than 10 words, one, two, three, four, five' };
         postDb.addPost(post);
         expect(postDb.database.findById(1)).toEqual(post);
     });
 
     it('should throw error if title is less than 5 words', () => {
-        const post = { id: 1, title: 'Title', content: 'Post Content' };
+        const post = { id: 1, title: 'Title', content: 'Post Content, Content, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten' };
         expect(() => postDb.addPost(post)).toThrowError('Title must be a string of at least 5 words');
     });
 
