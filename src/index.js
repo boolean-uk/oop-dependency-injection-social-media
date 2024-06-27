@@ -86,6 +86,10 @@ class UserDatabase {
         const remove = this.#database.remove(id)
         return remove
     }
+
+    get database() {
+        return this.#database.entries
+    }
 }
 
 class PostDatabase {
@@ -118,6 +122,10 @@ class PostDatabase {
     findPost(id) {
         const found = this.#database.findByID(id)
         return found
+    }
+
+    get database() {
+        return this.#database.entries
     }
 }
 export { UserDatabase, PostDatabase, User, Post }

@@ -34,8 +34,8 @@ describe('UserDatabase', () => {
     })
     it('should add a user to the database array', () => {
         userDatabase.addUser('billybob', 'newpassword')
-        expect(userDatabase.entries.length).toBe(1)
-        expect(userDatabase.entries[0].username).toBe('billybob')
+        expect(userDatabase.database.length).toBe(1)
+        expect(userDatabase.database[0].username).toBe('billybob')
     })
     it('should find a username to check if it already exists', () => {
         userDatabase.addUser('Jimothy', 'jdizzle')
@@ -53,8 +53,8 @@ describe('UserDatabase', () => {
         userDatabase.addUser('Jimothy', 'jdizzle')
         userDatabase.addUser('billybob', 'newpassword')
         userDatabase.removeUser(2)
-        expect(userDatabase.entries.length).toBe(1)
-        expect(userDatabase.entries[0].username).toBe('Jimothy')
+        expect(userDatabase.database.length).toBe(1)
+        expect(userDatabase.database[0].username).toBe('Jimothy')
     })
 })
 describe('PostDatabase', () => {
@@ -64,15 +64,15 @@ describe('PostDatabase', () => {
     })
     it('should add a post to the database', () => {
         postDatabase.addPost('First Post on the site', 'So excited to try this new social media today wow')
-        expect(postDatabase.entries.length).toBe(1)
-        expect(postDatabase.entries[0].title).toBe('First Post on the site')
+        expect(postDatabase.database.length).toBe(1)
+        expect(postDatabase.database[0].title).toBe('First Post on the site')
     })
     it('should remove a post by ID', () => {
         postDatabase.addPost('First Post on the site', 'So excited to try this new social media today wow')
         postDatabase.addPost('Trying out a new post', 'Testing to see if the new site is up and running')
         postDatabase.removePost(1)
-        expect(postDatabase.entries.length).toBe(1)
-        expect(postDatabase.entries[0].title).toBe('Trying out a new post')
+        expect(postDatabase.database.length).toBe(1)
+        expect(postDatabase.database[0].title).toBe('Trying out a new post')
     })
     it('should find a post by ID', () => {
         postDatabase.addPost('Trying out a new post', 'Testing to see if the new site is up and running')
