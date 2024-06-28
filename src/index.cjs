@@ -46,8 +46,8 @@ class Database {
 }
 
 class UserDatabase {
-  constructor() {
-    this.database = new Database();
+  constructor(database) {
+    this.database = database;
   }
 
   validateUsername(username) {
@@ -80,8 +80,8 @@ class UserDatabase {
 }
 
 class PostDatabase {
-  constructor() {
-    this.database = new Database();
+  constructor(database) {
+    this.database = database;
   }
 
   validatePost(title, content) {

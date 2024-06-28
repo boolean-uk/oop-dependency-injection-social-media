@@ -24,16 +24,19 @@ describe("Database", () => {
   });
 
   it("should find the object with id 1", () => {
-    const result = test.findDataById(1);
     test.addData();
+    const result = test.findDataById(1);
     expect(result).toEqual({ id: 1, username: "samisaeed", numOfPosts: 3 });
   });
 });
+
 describe("UserDatabase", () => {
   let userDb;
+  let database;
 
   beforeEach(() => {
-    userDb = new UserDatabase();
+    database = new Database();
+    userDb = new UserDatabase(database);
   });
 
   it("should throw an error if username is less than 6 characters", () => {
@@ -57,11 +60,14 @@ describe("UserDatabase", () => {
     });
   });
 });
+
 describe("PostDatabase", () => {
   let postDb;
+  let database;
 
   beforeEach(() => {
-    postDb = new PostDatabase();
+    database = new Database();
+    postDb = new PostDatabase(database);
   });
 
   it("should throw an error if title is less than 5 words", () => {
@@ -89,13 +95,13 @@ describe("PostDatabase", () => {
       id: 3,
       title: "This is a valid title",
       content:
-        "This is an example of a valid content block,should pass said tests.",
+        "This is an example of a valid content block, should pass said tests.",
     });
     expect(postDb.findPostById(3)).toEqual({
       id: 3,
       title: "This is a valid title",
       content:
-        "This is an example of a valid content block,should pass said tests.",
+        "This is an example of a valid content block, should pass said tests.",
     });
   });
 });
